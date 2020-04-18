@@ -1,0 +1,67 @@
+struct trie
+{
+bool isword;
+trie* ch[26];
+trie()
+{
+isword=false;
+memset(ch,NULL,sizeof(ch));
+}
+};
+void add(string s,trie *temp)
+{
+    for(int i=0;i<s.size();i++)
+    {
+        if(temp->ch[s[i]-'a']==NULL)
+            temp->ch[s[i]-'a']=new trie;
+        temp=temp->ch[s[i]-'a'];
+    }
+    temp->isword=true;
+}
+void search(string s,trie* temp)
+{
+    for(int i=0;i<s.size();i++)
+    {
+    if(temp->ch[s[i]-'a']!=NULL)
+        temp=temp->ch[s[i]-'a'];
+    else
+    {cout<<"the word that you are searching about Dosn't exist"<<endl;return;}
+    }
+    if(temp->isword)
+    cout<<"word exits"<<endl;
+    else
+    cout<<"the word that you are searching about Dosn't exist"<<endl;
+}
+void remove(string s,trie* temp)
+{
+    for(int i=0;i<s.size();i++)
+    {
+        if(temp->ch[s[i]-'a']!=NULL)
+            temp=temp->ch[s[i]-'a'];
+        else
+        {
+            cout<<"the word u want to delete isn't in the tree"<<endl;
+            return;
+        }
+    }
+    if(temp->isword)
+    {
+        temp->isword=false;
+        cout<<"the word has just been deleted "<<endl;
+    }
+    else
+    cout<<"the word u want to delete dosn't exist0"<<endl;
+}
+int main()
+{
+ trie* root=new trie;
+ string s[8] = {"the", "a", "there","answer", "any", "by","bye", "their" };
+ for(int i=0;i<8;i++)
+ add(s[i],root);
+ search("a",root);
+ search("aa",root);
+ search("the",root);
+ remove("the",root);
+  search("the",root);
+}
+
