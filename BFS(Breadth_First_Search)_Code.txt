@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<int>ver[100100];
+int n,ind;
+int shortpath[100100];
+int vis[100100];
+void bfs(int node)
+{
+memset( shortpath,-1,sizeof (shortpath));
+int cur_node;
+queue<int>q;
+vis[node]=1;
+shortpath[ind]=0;
+q.push(node);
+while(!q.empty())
+{
+cur_node=q.front();
+q.pop();
+for(auto it:ver[cur_node])
+if(!vis[it])
+vis[it]=1,q.push(it),shortpath[it]=shortpath[cur_node]+1;
+}
+}
+int main() {
+int m,a,b;
+cin>>n>>m>>ind;
+for(int i=0;i<m;i++)
+cin>>a>>b,ver[a].push_back(b),ver[b].push_back(a);
+bfs(ind);
+for(int i=1;i<=n;i++)
+cout<<shortpath[i]<<" ";
+}
+/*
+input:
+5 4 2
+1 2
+1 3
+2 4
+3 5
+output: 
+1 0 2 1 3
+*/
+https://ideone.com/GHlR6y
