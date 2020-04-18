@@ -1,0 +1,27 @@
+int par[N],h[N];
+
+int root(int x)
+{
+    if(x==par[x])
+        return x;
+    return par[x]=root(par[x]);
+}
+
+void union_sets(int a,int b)
+{
+    int r1=root(a);
+    int r2=root(b);
+    if(r1!=r2)
+    {
+        if(h[r1]<h[r2])
+        {
+            par[r1]=r2;
+            h[r2]=max(h[r2],h[r1]+1);
+        }
+        else
+        {
+            par[r2]=r1;
+            h[r1]=max(h[r1],h[r2]+1);
+        }
+    }
+}
