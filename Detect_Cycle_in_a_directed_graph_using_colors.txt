@@ -1,0 +1,64 @@
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+std::vector<int>v[200200];
+ 
+int vis[200200];
+ 
+int n,m,x,y;
+ 
+int dfs(int n)
+ 
+{
+ 
+vis[n]=1;
+ 
+for(int i=0;i<v[n].size();i++)
+ 
+{
+    
+
+if(vis[v[n][i]]==1)return 1;
+    
+if(!vis[v[n][i]])
+    
+{
+    
+int x=dfs(v[n][i]);
+    
+if(x==1)return 1;
+    
+}
+ 
+
+}
+ 
+vis[n]=2;
+ 
+return 0;
+ 
+}
+
+int main() 
+{
+
+ 
+cin>>n>>m;
+ 
+while(m--)
+ 
+cin>>x>>y,v[x].push_back(y);
+ 
+for(int i=1;i<=n;i++)
+ 
+if(vis[i]==0)
+ 
+if(dfs(i)==1)
+ 
+return cout<<"true",0;
+ 
+return cout<<"false",0;
+
+}
